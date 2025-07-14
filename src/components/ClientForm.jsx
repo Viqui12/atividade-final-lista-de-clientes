@@ -1,30 +1,28 @@
 import { useState } from "react";
+import Adici from "../Adici";
+
+// Componente de botão reutilizável
+const MeuBotao = ({ texto, acao }) => {
+  return <button onClick={() => acao(texto)}>{texto}</button>;
+};
 
 function ClientForm() {
-  // Estados para armazenar os dados do formulário
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
-
-  // Estado para guardar a lista de clientes cadastrados
   const [clientes, setClientes] = useState([]);
 
-  // Função que será chamada quando o botão "Adicionar" for clicado
-  const handleSubmit = () => {
+  const handleSubmit = (msg) => {
     if (nome.trim() && telefone.trim()) {
       const novoCliente = { nome, telefone };
-
-      // Adiciona novo cliente à lista existente
       setClientes([...clientes, novoCliente]);
-
-      // Limpa os campos do formulário
       setNome("");
       setTelefone("");
+      alert(`Cliente adicionado: ${msg}`);
     }
   };
 
   return (
     <form>
-      {/* Campo de nome */}
       <label htmlFor="nome">Nome</label>
       <input
         type="text"
@@ -34,29 +32,23 @@ function ClientForm() {
         onChange={(e) => setNome(e.target.value)}
       />
 
-      {/* Campo de telefone */}
       <label htmlFor="telefone">Telefone</label>
       <input
-  type="tel"
-  name="telefone"
-  id="telefone"
-  value={telefone}
-  onChange={(e) => {
-       const valor = e.target.value.replace(/\D/g, "").slice(0, 11);
-    setTelefone(valor);
-  }}
-    // Só permite números e até 11 dígitos
-      placeholder="Ex: 31991234567"
-  maxLength={11}
-
-        
+        type="tel"
+        name="telefone"
+        id="telefone"
+        value={telefone}
+        onChange={(e) => {
+          const valor = e.target.value.replace(/\D/g, "").slice(0, 11);
+          setTelefone(valor);
+        }}
+        placeholder="Ex: 31991234567"
+        maxLength={11}
       />
+
       
 
-      {/* Botão que adiciona cliente */}
-      <button type="button" onClick={handleSubmit}>
-        Adicionar
-      </button>
+    <Adici texto="Adicionar" acao={handleSubmit} />
 
       {/* Lista de clientes */}
       <ul>
@@ -68,11 +60,4 @@ function ClientForm() {
       </ul>
     </form>
   );
-}
-
-export default ClientForm;
-
-
-
-
-
+}export default ClientForm;

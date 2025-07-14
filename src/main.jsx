@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from './App';
 import ClientForm from './components/ClientForm';
 import './styles/Form.css'; 
+import Adici from './Adici';
 
 
 
